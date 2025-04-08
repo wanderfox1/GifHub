@@ -1,0 +1,41 @@
+
+.input-wrapper {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+
+    border: 5px solid #ffb380;
+    border-radius: 10px;
+    height: 80px;
+    width: 300px;
+    padding: 0 15px;
+
+    align-items: center;
+
+
+    background-color: transparent;
+}
+
+.findIcon {
+    width: 20px;
+
+    margin: 0 10px;
+
+    color: #000066;
+}
+
+input {
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+
+    height: 100%;
+
+    width: 100%;
+    font-size: 19px;
+}
+
+
+input:focus {
+    outline: none;
+}
