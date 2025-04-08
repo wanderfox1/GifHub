@@ -7,7 +7,7 @@
 }
 
 .main {
-    height: 900px;
+    min-height: 1800px;
     background-color: #ffa366;
 
     margin: 0 auto;
@@ -18,7 +18,7 @@
     width: 310px;
 
     margin: 0 auto;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .btns {
@@ -77,4 +77,15 @@
     width: max-content;
     font-size: 25px;
     margin: 0 auto;
+}
+
+.gif__container {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    img {
+        height: 250px;
+
+        padding: 3px;
+    }
 }
