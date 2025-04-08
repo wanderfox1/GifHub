@@ -1,11 +1,13 @@
 import './SearchBar.css';
 import findIcon from '../assets/find.png';
-import {useState} from 'react';
+import cancelIcon from '../assets/cancel.png'
 
-export const SearchBar = () => {
+type Props = {
+    input: string,
+    onInputChange: (value: string) => void
+}
 
-    const [input, setInput] = useState<string>('')
-
+export const SearchBar = ({input, onInputChange} : Props) => {
 
     return (
         <>
@@ -13,7 +15,11 @@ export const SearchBar = () => {
             <div className={"input-wrapper"}>
                 <img className={"findIcon"} src={findIcon} alt={"findIcon"}/>
 
-                <input placeholder="Type the word ..." className={"input"} value={input} onChange={(e) => setInput(e.target.value)}/>
+                <input placeholder="Type the word ..." className={"input"} value={input} onChange={(e) => onInputChange(e.target.value)}/>
+
+                <button className={"cancelIcon"} onClick={(e) => onInputChange('')}>
+                    <img  src={cancelIcon}/>
+                </button>
             </div>
         </>
     )

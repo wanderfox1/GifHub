@@ -7,21 +7,25 @@
     border: 5px solid #ffb380;
     border-radius: 10px;
     height: 80px;
-    width: 300px;
+    width: 370px;
     padding: 0 15px;
 
     align-items: center;
-
-
     background-color: transparent;
 }
 
 .findIcon {
     width: 20px;
-
     margin: 0 10px;
+}
 
-    color: #000066;
+.cancelIcon {
+    background-color: transparent;
+    border: none;
+    img {
+        width: 30px;
+        margin: 0 10px;
+    }
 }
 
 input {
