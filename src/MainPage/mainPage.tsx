@@ -66,15 +66,19 @@ export const MainPage = () => {
             {loading && <h3>Gifs are loading ...</h3>}
             {error && <h3>The error exists</h3>}
 
-            <div className={"gif__container"}>
+            {gifs.length === 1 ? (
+                <div className="gif__single">
+                    <img src={gifs[0].images.fixed_height.url} alt="gif"/>
+                </div>
+            ) : (
 
+            <div className={"gif__container"}>
                 {gifs.map((gif) => (
-                        <img key={gif.id} src={gif.images.fixed_height.url} alt="gif"/>
+                    <img key={gif.id} src={gif.images.fixed_height.url} alt="gif"/>
                     )
                 )}
-
-            </div>
-
+            </div> )
+            }
             {!gifs && <div className={"searchPhrase"}>Search a gif!</div>}
 
         </div>
