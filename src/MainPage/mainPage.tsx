@@ -28,11 +28,10 @@ export const MainPage = () => {
             setError(null);
 
             const data = await fetchData(url);
+            setGifs(data);
             console.log(data)
-            setGifs(Array.isArray(data) ? data : [data]);
         } catch {
             setError(true);
-            console.log(error);
         } finally {
             setLoading(false);
         }
