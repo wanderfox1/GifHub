@@ -1,4 +1,4 @@
-import './mainPage.css';
+import './mainPage.module.css';
 import {SearchBar} from "../SearchBar/SearchBar.tsx";
 import mainIcon from '../assets/gifhub.png';
 import {fetchData} from '../utils/fetchData.ts';

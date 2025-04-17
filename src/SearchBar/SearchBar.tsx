@@ -1,4 +1,4 @@
-import './SearchBar.css';
+import './SearchBar.module.css';
 import findIcon from '../assets/find.png';
 import cancelIcon from '../assets/cancel.png'
 
