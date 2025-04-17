@@ -31,31 +31,47 @@ export const MainPage = () => {
     const debouncedSearch = useDebounce(searchValue, 1000);
 
     useEffect(() => {
-        searchGifs({method: page});
+        if (page !== 'search'){
+            setGifs([])
+            searchGifs({method: page});
+        } else {
+            setGifs([])
+        }
     }, [page])
 
     useEffect(() => {
         if (page === 'search' && debouncedSearch) {
             searchGifs({query: debouncedSearch})
         }
-    }, [debouncedSearch, page])
+    }, [debouncedSearch])
+
+    useEffect(() => {
+        if (inView && page=='search') {
+            searchGifs({query: debouncedSearch, more: true});
+        } else {
+            searchGifs({method: page, more:true})
+        }
+    }, [inView])
+
 
     type SearchParams = {
         query?: string,
-        method?: string
+        method?: string,
+        more?: boolean
     }
 
-    const searchGifs = async ({query, method} : SearchParams) => {
+    const searchGifs = async ({query, method, more} : SearchParams) => {
         let url = '';
-        console.log('query:', query)
-        console.log('method:', method)
-
         if (query) {
-            url =  `https://api.giphy.com/v1/gifs/search?api_key=etKxG3hsbehqiuyCe421BeJM6BRHJYE4&q=${query}&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
+            console.log("query =", query);
+            console.log("encoded query =", encodeURIComponent(query));
+
+            url =  `https://api.giphy.com/v1/gifs/search?api_key=${import.meta.env.VITE_GIF_API_KEY}=${query}&limit=25&offset=${gifs.length}&rating=g&lang=en&bundle=messaging_non_clips`
+            // почему-то сам вписывает q=
             console.log('1')
         }
         else {
-            url = `https://api.giphy.com/v1/gifs/${method}?api_key=etKxG3hsbehqiuyCe421BeJM6BRHJYE4&tag=&rating=g`
+            url = `https://api.giphy.com/v1/gifs/${method}?api_key=${import.meta.env.VITE_GIF_API_KEY}&offset=${gifs.length}&rating=g`
             console.log('2')
         }
 
@@ -67,18 +83,19 @@ export const MainPage = () => {
             const data = await fetchData(url)
 
             setLoading(false)
-            setGifs(data);
+
+            if (more) {
+                setGifs(prev => [...prev, ...data]);
+            }
+            else {
+                setGifs(data)
+            }
+
         } catch {
             setError(error)
             setLoading(false)
         }
     }
-
-
-
-    // useEffect(() => {
-    //     searchGifs(page);
-    // }, [inView])
 
     return (
 
@@ -127,7 +144,6 @@ export const MainPage = () => {
             }
             {!gifs && <div className={"searchPhrase"}>Search a gif!</div>}
             <div ref={ref} className={"intersection"}>Block for intersection-observer</div>
-
         </div>
     )
 }
