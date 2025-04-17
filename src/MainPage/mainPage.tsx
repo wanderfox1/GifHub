@@ -15,34 +15,51 @@ export type gif = {
     }
 }
 
-type Pages = 'search' | 'random' | 'best'; // union type
+type Pages = 'search' | 'random' | 'trending'; // union type
 
 export const MainPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean | null>(null);
     const [gifs, setGifs] = useState<gif[]>([])
     const [searchValue, setSearchValue] = useState<string>('')
-    const [page, setPage] = useState<Pages>('best');
+    const [page, setPage] = useState<Pages>('trending');
+
+    const { ref, inView, entry } = useInView({
+        threshold: 0.5,
+    });
 
     const debouncedSearch = useDebounce(searchValue, 1000);
 
     useEffect(() => {
-        searchGifs(debouncedSearch)
-    }, [debouncedSearch])
+        searchGifs({method: page});
+    }, [page])
 
-    const keySearchWords = {
-        trending: "trending",
-        random: "random"
+    useEffect(() => {
+        if (page === 'search' && debouncedSearch) {
+            searchGifs({query: debouncedSearch})
+        }
+    }, [debouncedSearch, page])
+
+    type SearchParams = {
+        query?: string,
+        method?: string
     }
 
-    const searchGifs = async (query: string, method?: string) => {
+    const searchGifs = async ({query, method} : SearchParams) => {
         let url = '';
+        console.log('query:', query)
+        console.log('method:', method)
+
         if (query) {
             url =  `https://api.giphy.com/v1/gifs/search?api_key=etKxG3hsbehqiuyCe421BeJM6BRHJYE4&q=${query}&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
+            console.log('1')
         }
         else {
             url = `https://api.giphy.com/v1/gifs/${method}?api_key=etKxG3hsbehqiuyCe421BeJM6BRHJYE4&tag=&rating=g`
+            console.log('2')
         }
+
+        console.log(url)
         try {
             setLoading(true);
             setError(null);
@@ -57,9 +74,11 @@ export const MainPage = () => {
         }
     }
 
-    useEffect(() => {
-        searchGifs(page);
-    }, [page])
+
+
+    // useEffect(() => {
+    //     searchGifs(page);
+    // }, [inView])
 
     return (
 
@@ -69,9 +88,8 @@ export const MainPage = () => {
             {page === 'search' && <SearchBar input={searchValue} onInputChange={setSearchValue}/>}
 
             <div className={"btns"}>
-                <button className={ page==='best' ? "btn__best active" : 'btn__best'}
-
-                        onClick={() => setPage('best')}
+                <button className={ page==='trending' ? "btn__best active" : 'btn__best'}
+                        onClick={() => setPage('trending')}
                 >Best
                 </button>
                 <button
@@ -108,6 +126,7 @@ export const MainPage = () => {
             </div> )
             }
             {!gifs && <div className={"searchPhrase"}>Search a gif!</div>}
+            <div ref={ref} className={"intersection"}>Block for intersection-observer</div>
 
         </div>
     )

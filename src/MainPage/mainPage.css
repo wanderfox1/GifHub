@@ -3,20 +3,17 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-
 }
 
 .main {
     min-height: 1800px;
     background-color: #ffa366;
-
     margin: 0 auto;
 }
 
 .mainIcon {
     display: block;
     width: 310px;
-
     margin: 0 auto;
     padding-top: 50px;
 }
@@ -35,43 +32,20 @@
     font-size: 17px;
     border-radius: 10px;
     text-decoration: none;
-    /*box-shadow : 0 5px white;*/
     background-color: transparent;
 }
 
-.btn__random:hover {
+.btn__random:hover, .btn__search:hover, .btn__best:hover {
     background-color: #f8985a;
 }
 
-.btn__search:hover {
-    background-color: #f8985a;
-}
-
-.btn__best:hover {
-    background-color: #f8985a;
-}
-
-
-
-.btn__search {
+.btn__search, .btn__best {
     width: 150px;
     height: 50px;
     border: 5px solid #e65c00;
     font-size: 17px;
     border-radius: 10px;
     text-decoration: none;
-    /*box-shadow : 0 5px white;*/
-    background-color: transparent;
-}
-
-.btn__best {
-    width: 150px;
-    height: 50px;
-    border: 5px solid #e65c00;
-    font-size: 17px;
-    border-radius: 10px;
-    text-decoration: none;
-    /*box-shadow : 0 5px white;*/
     background-color: transparent;
 }
 
@@ -99,7 +73,7 @@
         transition: 1s;
     }
     img:hover {
-        transform: scale(1.2)
+        transform: scale(1.1)
     }
 }
 
@@ -119,4 +93,12 @@
 
 .active {
     background-color: #f8985a;
+}
+
+.intersection {
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+    height: 100px;
+    visibility: hidden;
 }
